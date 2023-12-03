@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blackmagic Extension Options</title>
+  <script src="contentScript.js"></script>
+</head>
+<body>
+  <h1>Blackmagic Extension Options</h1>
+
+  <label for="themeSelector">Theme:</label>
+  <select id="themeSelector">
+    <option value="light">Light</option>
+    <option value="dark">Dark</option>
+  </select>
+
+  <button id="saveThemeButton">Save</button>
+
+  <script>
+    const themeSelector = document.getElementById("themeSelector");
+    const saveThemeButton = document.getElementById("saveThemeButton");
+
+    themeSelector.addEventListener("change", () => {
+      chrome.runtime.sendMessage({ type: "setTheme", theme: themeSelector.value });
+    });
+
+    saveThemeButton.addEventListener("click", () => {
+      themeSelector.dispatchEvent(new Event("change"));
+    });
+  </script>
+</body>
+</html>
